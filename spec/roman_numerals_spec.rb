@@ -29,8 +29,28 @@ describe 'converting an Arabic number to a Roman numeral' do
   end
 
   describe 'modern Roman numerals' do
-    # Release 3 ...
-    # add tests for modern roman numerals here
+    it 'converts 1749 to MDCCXLIX' do
+      expect(convert_to_roman(1749, {modern: true})).to eq "MDCCXLIX"
+    end
 
+    it 'converts 999 to CMXCIX' do
+      expect(convert_to_roman(999, {modern: true})).to eq "CMXCIX"
+    end
+
+    it 'converts 123 to CXXIII' do
+      expect(convert_to_roman(123, {modern: true})).to eq "CXXIII"
+    end
+
+    it 'converts 888 to DCCCLXXXVIII' do
+      expect(convert_to_roman(888, {modern: true})).to eq "DCCCLXXXVIII"
+    end
+
+    it 'converts 2949 to MMCMXLIX' do
+      expect(convert_to_roman(2949, {modern: true})).to eq "MMCMXLIX"
+    end
+
+it 'converts 2499 to MMCDXCIX' do
+      expect(convert_to_roman(2499, {modern: true})).to eq "MMCDXCIX"
+    end
   end
 end
