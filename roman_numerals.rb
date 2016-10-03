@@ -1,4 +1,4 @@
-def convert_to_roman(arabic_number, options)
+def convert_to_roman(arabic_number, options = {})
   roman_numeral = ""
   3.times do
     if arabic_number >= 1000
@@ -44,8 +44,13 @@ def convert_to_roman(arabic_number, options)
   end
 
 if options[:modern]
-  #modern code here
-  puts "hahaha"
+  roman_numeral.gsub!("DCCCC", "CM")
+  roman_numeral.gsub!("CCCC", "CD")
+  roman_numeral.gsub!("LXXXX", "XC")
+  roman_numeral.gsub!("XXXX", "XL")
+  roman_numeral.gsub!("VIIII", "IX")
+  roman_numeral.gsub!("IIII", "IV")
+
 end
 
 roman_numeral
@@ -53,4 +58,4 @@ roman_numeral
 
 end
 
-#p convert_to_roman(187, {modern: true})
+p convert_to_roman(2999, {modern: true})
