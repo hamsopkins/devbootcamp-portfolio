@@ -1,3 +1,15 @@
 def convert_to_roman(arabic_number)
-  # Your code goes here
+  roman_numeral = ""
+
+
+  4.times do
+    if arabic_number >= 1
+      roman_numeral += "I"
+      arabic_number -= 1
+    end
+  end
+
+roman_numeral
 end
+
+#p convert_to_roman(1)
