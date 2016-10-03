@@ -49,8 +49,12 @@ describe 'converting an Arabic number to a Roman numeral' do
       expect(convert_to_roman(2949, {modern: true})).to eq "MMCMXLIX"
     end
 
-it 'converts 2499 to MMCDXCIX' do
+  it 'converts 2499 to MMCDXCIX' do
       expect(convert_to_roman(2499, {modern: true})).to eq "MMCDXCIX"
+      end
+
+  it 'converts 944 to CMXLIV' do
+     expect(convert_to_roman(944, {modern: true})).to eq "CMXLIV"
     end
   end
 end
