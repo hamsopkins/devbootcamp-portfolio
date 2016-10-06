@@ -21,8 +21,16 @@ describe 'straight_line_include?' do
 		expect(straight_line_include?("anything", puzzle)).to be_boolean
 	end
 
-	it 'returns true if word found in straight line in puzzle' do
+	it 'returns true if word found in horizontal straight line in puzzle' do
 		expect(straight_line_include?("foxes", puzzle)).to be true
+	end
+
+	it 'returns true if word found in vertical straight line in puzzle' do
+		expect(straight_line_include?("otters", puzzle)).to be true
+	end
+
+	it 'returns true if word found in diagonal straight line in puzzle' do
+		expect(straight_line_include?("bison", puzzle)).to be true
 	end
 
 	it 'returns false if word isn\'t found in straight line in puzzle' do
