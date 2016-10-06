@@ -44,6 +44,11 @@ describe 'straight_line_include?' do
 	it 'returns true if word is a right column diagonal' do
 		expect(straight_line_include?("oath", puzzle)).to be true
 	end
+
+	it 'returns true if word is a right row diagonal' do
+		expect(straight_line_include?("ixti", puzzle)).to be true
+	end
+	
 end
 
 describe 'snaking_include?' do
