@@ -29,7 +29,7 @@ describe 'straight_line_include?' do
 		expect(straight_line_include?("otters", puzzle)).to be true
 	end
 
-	it 'returns true if word found in diagonal straight line in puzzle' do
+	it 'returns true if word found in left row diagonal straight line in puzzle' do
 		expect(straight_line_include?("bison", puzzle)).to be true
 	end
 
@@ -39,6 +39,10 @@ describe 'straight_line_include?' do
 
 	it 'returns true if word is a left column diagonal in puzzle' do
 		expect(straight_line_include?("eakse", puzzle)).to be true
+	end
+
+	it 'returns true if word is a right column diagonal' do
+		expect(straight_line_include?("oath", puzzle)).to be true
 	end
 end
 

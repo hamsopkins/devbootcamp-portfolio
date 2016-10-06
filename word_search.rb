@@ -20,6 +20,7 @@ def straight_line_include?(word, puzzle)
 	search_string << add_columns(puzzle) + " "
 	search_string << add_left_column_diags(puzzle) + " "
 	search_string << add_left_row_diags(puzzle) + " "
+	search_string << add_right_column_diags(puzzle) + " "
 	search_string += " #{search_string.reverse}"
 	search_string.include?(word)
 end
@@ -82,6 +83,18 @@ end
 
 
 def add_right_column_diags(puzzle)
+	result_string = ""
+	origin_points = (0...(puzzle[0].length - 1)).to_a
+	origin_points.each do | x |
+		y = 0
+		while x < puzzle[0].length
+			result_string << puzzle[y][x]
+			x += 1
+			y += 1
+		end
+		result_string << " "
+	end
+	result_string
 end
 
 def add_right_row_diags(puzzle)
