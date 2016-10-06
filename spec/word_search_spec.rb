@@ -37,6 +37,9 @@ describe 'straight_line_include?' do
 		expect(straight_line_include?("panda", puzzle)).to be false
 	end
 
+	it 'returns true if word is a left column diagonal in puzzle' do
+		expect(straight_line_include?("eakse", puzzle)).to be true
+	end
 end
 
 describe 'snaking_include?' do
