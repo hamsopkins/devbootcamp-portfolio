@@ -1,5 +1,4 @@
 def straight_line_include?(word, puzzle)
-	contains_word = false
 	search_string = ""
 	search_string << all_rows_of(puzzle) + " "
 	search_string << all_columns_of(puzzle) + " "
