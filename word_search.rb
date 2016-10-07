@@ -1,12 +1,12 @@
 def straight_line_include?(word, puzzle)
 	contains_word = false
 	search_string = ""
-	search_string << all_rows(puzzle) + " "
-	search_string << all_columns(puzzle) + " "
-	search_string << all_left_column_diags(puzzle) + " "
-	search_string << all_left_row_diags(puzzle) + " "
-	search_string << all_right_column_diags(puzzle) + " "
-	search_string << all_right_row_diags(puzzle) + " "
+	search_string << all_rows_of(puzzle) + " "
+	search_string << all_columns_of(puzzle) + " "
+	search_string << all_left_column_diags_of(puzzle) + " "
+	search_string << all_left_row_diags_of(puzzle) + " "
+	search_string << all_right_column_diags_of(puzzle) + " "
+	search_string << all_right_row_diags_of(puzzle) + " "
 	search_string += search_string.reverse
 	search_string.include?(word)
 end
@@ -14,13 +14,13 @@ end
 def snaking_include?(word, puzzle)
 end
  
-def all_rows(puzzle)
+def all_rows_of(puzzle)
 	result_string = ""
 	puzzle.each { |row| result_string << row.join + " " }
 	result_string
 end
 
-def all_columns(puzzle)
+def all_columns_of(puzzle)
 	result_string = ""
 	column = 0
 	while column < puzzle[0].length
@@ -36,7 +36,7 @@ def all_columns(puzzle)
 end
 
 
-def all_left_column_diags(puzzle)
+def all_left_column_diags_of(puzzle)
 	result_string = ""
 	(1...puzzle[0].length).each do | x |
 		y = 0
@@ -51,7 +51,7 @@ def all_left_column_diags(puzzle)
 end
 
 
-def all_left_row_diags(puzzle)
+def all_left_row_diags_of(puzzle)
 	result_string = ""
 	(0...puzzle.length).each do | y |
 		x = puzzle[0].length - 1
@@ -67,7 +67,7 @@ end
 
 
 
-def all_right_column_diags(puzzle)
+def all_right_column_diags_of(puzzle)
 	result_string = ""
 	(0...(puzzle[0].length - 1)).each do | x |
 		y = 0
@@ -81,7 +81,7 @@ def all_right_column_diags(puzzle)
 	result_string
 end
 
-def all_right_row_diags(puzzle)
+def all_right_row_diags_of(puzzle)
 	result_string = ""
 	(0..(puzzle.length - 2)).each do | y |
 		x = 0
