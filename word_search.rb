@@ -1,11 +1,11 @@
 def straight_line_include?(word, puzzle)
 	search_string = ""
-	search_string << all_rows_of(puzzle) + " "
-	search_string << all_columns_of(puzzle) + " "
-	search_string << all_left_column_diags_of(puzzle) + " "
-	search_string << all_left_row_diags_of(puzzle) + " "
-	search_string << all_right_column_diags_of(puzzle) + " "
-	search_string << all_right_row_diags_of(puzzle) + " "
+	search_string << all_rows_of(puzzle)
+	search_string << all_columns_of(puzzle)
+	search_string << all_left_column_diags_of(puzzle)
+	search_string << all_left_row_diags_of(puzzle)
+	search_string << all_right_column_diags_of(puzzle)
+	search_string << all_right_row_diags_of(puzzle)
 	search_string += search_string.reverse
 	search_string.include?(word)
 end
