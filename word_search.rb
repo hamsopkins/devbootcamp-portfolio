@@ -13,10 +13,10 @@ end
 
 def snaking_include?(word, puzzle)
 end
-
+ 
 def add_rows(puzzle)
 	result_string = ""
-	puzzle.each { |row| result_string << row.join }
+	puzzle.each { |row| result_string << row.join + " " }
 	result_string
 end
 
@@ -29,6 +29,7 @@ def add_columns(puzzle)
 			result_string << puzzle[row][column]
 			row += 1
 		end
+		result_string << " "
 		column += 1
 	end
 	result_string
@@ -37,8 +38,7 @@ end
 
 def add_left_column_diags(puzzle)
 	result_string = ""
-	origin_points = (1...puzzle[0].length).to_a
-	origin_points.each do | x |
+	(1...puzzle[0].length).each do | x |
 		y = 0
 		while x >= 0
 			result_string << puzzle[y][x]
@@ -53,8 +53,7 @@ end
 
 def add_left_row_diags(puzzle)
 	result_string = ""
-	origin_points = (0...puzzle.length).to_a
-	origin_points.each do | y |
+	(0...puzzle.length).each do | y |
 		x = puzzle[0].length - 1
 		while y < puzzle.length
 			result_string << puzzle[y][x]
@@ -70,8 +69,7 @@ end
 
 def add_right_column_diags(puzzle)
 	result_string = ""
-	origin_points = (0...(puzzle[0].length - 1)).to_a
-	origin_points.each do | x |
+	(0...(puzzle[0].length - 1)).each do | x |
 		y = 0
 		while x < puzzle[0].length
 			result_string << puzzle[y][x]
@@ -85,8 +83,7 @@ end
 
 def add_right_row_diags(puzzle)
 	result_string = ""
-	origin_points = (0..(puzzle.length - 2)).to_a
-	origin_points.each do | y |
+	(0..(puzzle.length - 2)).each do | y |
 		x = 0
 		while y < puzzle.length
 			result_string << puzzle[y][x]
