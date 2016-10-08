@@ -5,7 +5,7 @@ class RubyRacer
   attr_accessor :players
 
   def initialize(players, die, length = 30)
-    @players = [["Player A", 0], ["Player B", 0]]
+    @players = players
     @player_a = @players[0]
     @player_b = @players[1]
     @length = length
@@ -15,11 +15,7 @@ class RubyRacer
   # Returns +true+ if one of the players has reached
   # the finish line, +false+ otherwise
   def finished?
-    if winner() != nil
-      true
-    else
-      false
-    end
+    winner() != nil
   end
 
   # Returns the winner if there is one, +nil+ otherwise
@@ -38,10 +34,9 @@ class RubyRacer
     puts "#{player[0]}, press return to roll the die."
     wait_for_return = gets.chomp
     spaces_forward = @die.roll
-    puts "#{player[0]} advances #{spaces_forward} spaces forward!"
+    puts "#{player[0]} advances #{spaces_forward} #{if spaces_forward == 1; "space"; else; "spaces"; end} forward!"
     player[1] += spaces_forward
-
-
+    sleep(1)
   end
 
   # Returns the current state of the game as a string
@@ -53,20 +48,13 @@ class RubyRacer
     icon_3 = " |>"
     icon_4 = "(x)"
     line = "*----------------------------------------------------------|"
-
-    puts @player_a[0].upcase + ":"
-    puts (" " * 2 * @players[0][1]) + icon_1
-    puts (" " * 2 * @players[0][1]) + icon_2
-    puts (" " * 2 * @players[0][1]) + icon_3
-    puts (" " * 2 * @players[0][1]) + icon_4
-    puts line
-    puts @player_b[0].upcase + ":"
-    puts (" " * 2 * @players[1][1]) + icon_1
-    puts (" " * 2 * @players[1][1]) + icon_2
-    puts (" " * 2 * @players[1][1]) + icon_3
-    puts (" " * 2 * @players[1][1]) + icon_4
-    puts line
-
-
+    @players.each do | player |
+      puts player[0].upcase + ":"
+      puts (" " * 2 * player[1]) + icon_1
+      puts (" " * 2 * player[1]) + icon_2
+      puts (" " * 2 * player[1]) + icon_3
+      puts (" " * 2 * player[1]) + icon_4
+      puts line
+    end
   end
 end

@@ -3,10 +3,9 @@ require_relative 'ruby_racer'
 require_relative 'reset_screen'
 
 
-players = [:a, :b]
+players = []
 die = Die.new
 
-game = RubyRacer.new(players, die)
 
 # Clear the screen and print the board
 # with players in their starting positions.
@@ -14,17 +13,27 @@ game = RubyRacer.new(players, die)
 reset_screen
 puts "Welcome to RubyRacer!"
 puts "Get on your unicycles, folks!"
-puts "Player A, please enter your name:"
-game.players[0][0] = gets.chomp
-puts "Player B, please enter your name:"
-game.players[1][0] = gets.chomp
-puts game.board_visualization
+puts "Please enter the number of users (2-5 allowed):"
+number_of_users = gets.chomp.to_i
+if !(2..5).include?(number_of_users)
+  until (2..5).include?(number_of_users)
+    puts "Invalid input. Number of allowed users can only be 2-5."
+    puts "Please enter the number of users:"
+    number_of_users = gets.chomp.to_i
+  end
+end
+number_of_users.times do | n |
+  puts "Player #{n + 1}, please enter your name:"
+  players << [gets.chomp, 0]
+end
+game = RubyRacer.new(players, die)
+system "clear"
+game.board_visualization
 sleep(1)
 
 # Play the game.
 until game.finished?
   # Do this each round until the game is finished.
-
   # Move each player forward.
   game.players.each do |player|
     game.advance_player(player)
@@ -37,7 +46,7 @@ until game.finished?
   # reprint the board with the new player positions
   # and pause so users can see the updated board.
   reset_screen
-  puts game.board_visualization
+  game.board_visualization
   sleep(0.2)
 end
 
