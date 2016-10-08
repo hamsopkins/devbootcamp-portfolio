@@ -6,8 +6,6 @@ class RubyRacer
 
   def initialize(players, die, length = 30)
     @players = players
-    @player_a = @players[0]
-    @player_b = @players[1]
     @length = length
     @die = Die.new
   end
@@ -22,7 +20,7 @@ class RubyRacer
   def winner
     winner = nil
     @players.each do | player |
-      if player[1] >= length
+      if player[1] == length
         winner = player[0]
       end
     end
@@ -35,7 +33,11 @@ class RubyRacer
     wait_for_return = gets.chomp
     spaces_forward = @die.roll
     puts "#{player[0]} advances #{spaces_forward} #{if spaces_forward == 1; "space"; else; "spaces"; end} forward!"
-    player[1] += spaces_forward
+    if player[1] + spaces_forward > @length
+      player[1] = @length
+    else
+      player[1] += spaces_forward
+    end
     sleep(1)
   end
 
@@ -47,7 +49,7 @@ class RubyRacer
     icon_2 = "-(-"
     icon_3 = " |>"
     icon_4 = "(x)"
-    line = "*----------------------------------------------------------|"
+    line = "*-------------------------------------------------------------|"
     @players.each do | player |
       puts player[0].upcase + ":"
       puts (" " * 2 * player[1]) + icon_1
