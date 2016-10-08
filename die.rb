@@ -7,6 +7,6 @@ class Die
 
   def roll
     # rand(n) will return a number from 0 to one less than n
-    rand(side_count) + 1
+    rand(side_count + 1)
   end
 end

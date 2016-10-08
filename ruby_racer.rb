@@ -32,11 +32,17 @@ class RubyRacer
     puts "#{player[0]}, press return to roll the die."
     wait_for_return = gets.chomp
     spaces_forward = @die.roll
-    puts "#{player[0]} advances #{spaces_forward} #{if spaces_forward == 1; "space"; else; "spaces"; end} forward!"
-    if player[1] + spaces_forward > @length
-      player[1] = @length
+    if spaces_forward != 0
+      puts "#{player[0]} advances #{spaces_forward} #{if spaces_forward == 1; "space"; else; "spaces"; end} forward!"
+      if player[1] + spaces_forward > @length
+        player[1] = @length
+      else
+        player[1] += spaces_forward
+      end
     else
-      player[1] += spaces_forward
+      puts "Oh no! #{player[0]} fell off their unicycle!"
+      puts "#{player[0]} needs to take a break this turn. :("
+      sleep(1)
     end
     sleep(1)
   end
