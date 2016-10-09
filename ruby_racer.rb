@@ -20,8 +20,8 @@ class RubyRacer
   def winner
     winner = nil
     @players.each do | player |
-      if player[1] == length
-        winner = player[0]
+      if player[:position] == length
+        winner = player[:name]
       end
     end
     winner
@@ -29,19 +29,21 @@ class RubyRacer
 
   # Rolls the die and advances +player+ accordingly
   def advance_player(player)
-    puts "#{player[0]}, press return to roll the die."
+    puts "#{player[:name]}, press return to roll the die."
     wait_for_return = gets.chomp
     spaces_forward = @die.roll
     if spaces_forward != 0
-      puts "#{player[0]} advances #{spaces_forward} #{if spaces_forward == 1; "space"; else; "spaces"; end} forward!"
-      if player[1] + spaces_forward > @length
-        player[1] = @length
+      player[:fell] = false
+      puts "#{player[:name]} advances #{spaces_forward} space#{unless spaces_forward == 1; "s"; end} forward!"
+      if player[:position] + spaces_forward > @length
+        player[:position] = @length
       else
-        player[1] += spaces_forward
+        player[:position] += spaces_forward
       end
     else
-      puts "Oh no! #{player[0]} fell off their unicycle!"
-      puts "#{player[0]} needs to take a break this turn. :("
+      player[:fell] = true
+      puts "Oh no! #{player[:name]} fell off their unicycle!"
+      puts "#{player[:name]} needs to take a break this turn. :("
       sleep(1)
     end
     sleep(1)
@@ -51,18 +53,22 @@ class RubyRacer
   # that can be printed on the command line.
   # The board should have the same dimensions each time.
   def board_visualization
-    icon_1 = " O"
-    icon_2 = "-(-"
-    icon_3 = " |>"
-    icon_4 = "(x)"
-    line = "*-------------------------------------------------------------|"
+    head = " O"
+    torso = "-(-"
+    legs = " |>"
+    wheel = "(x)"
+    ground = "*-------------------------------------------------------------|"
     @players.each do | player |
-      puts player[0].upcase + ":"
-      puts (" " * 2 * player[1]) + icon_1
-      puts (" " * 2 * player[1]) + icon_2
-      puts (" " * 2 * player[1]) + icon_3
-      puts (" " * 2 * player[1]) + icon_4
-      puts line
+      puts player[:name].upcase + ":"
+      if player[:fell]
+        3.times { puts("") }
+      else
+        puts (" " * 2 * player[:position]) + head
+        puts (" " * 2 * player[:position]) + torso
+        puts (" " * 2 * player[:position]) + legs
+      end
+      puts (" " * 2 * player[:position]) + wheel
+      puts ground
     end
   end
 end
