@@ -62,12 +62,13 @@ class RubyRacer
       puts player[:name].upcase + ":"
       if player[:fell]
         3.times { puts("") }
+        puts (" " * 2 * player[:position]) + wheel + "-^|-O"
       else
         puts (" " * 2 * player[:position]) + head
         puts (" " * 2 * player[:position]) + torso
         puts (" " * 2 * player[:position]) + legs
+        puts (" " * 2 * player[:position]) + wheel
       end
-      puts (" " * 2 * player[:position]) + wheel
       puts ground
     end
   end
