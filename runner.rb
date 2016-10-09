@@ -1,6 +1,7 @@
 require_relative 'die'
 require_relative 'ruby_racer'
 require_relative 'reset_screen'
+require 'artii'
 
 
 players = []
@@ -51,4 +52,6 @@ until game.finished?
 end
 
 # Once the game is finished, report the winner.
-puts "#{game.winner} wins!"
+artify = Artii::Base.new :font => 'slant'
+
+puts artify.asciify("#{game.winner} wins!")
