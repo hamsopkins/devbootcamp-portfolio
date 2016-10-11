@@ -29,8 +29,21 @@ number_of_users.times do | n |
   puts "Player #{n + 1}, please enter your name:"
   players << { name: gets.chomp, position: 0, fell: false }
 end
+puts "Do you want to run in auto mode? (y/n)"
+if_auto_mode_input = gets.chomp
+unless if_auto_mode_input.downcase == "y" || if_auto_mode_input.downcase == "n"
+  until if_auto_mode_input.downcase == "y" || if_auto_mode_input.downcase == "n"
+    puts "Please try again. Enter y or n."
+    if_auto_mode_input = gets.chomp
+  end
+end
+if if_auto_mode_input.downcase == "y"
+  params = { auto_mode: true }
+else
+  params = { auto_mode: false}
+end
 
-game = RubyRacer.new(players, die)
+game = RubyRacer.new(players, die, params)
 system "clear"
 game.board_visualization
 sleep(1)

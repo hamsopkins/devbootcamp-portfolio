@@ -4,7 +4,8 @@ class RubyRacer
   attr_reader :die, :length
   attr_accessor :players
 
-  def initialize(players, die, length = 30)
+  def initialize(players, die, params, length = 30)
+    @auto_mode = params.fetch(:auto_mode) { false }
     @players = players
     @length = length
     @die = Die.new
@@ -29,12 +30,16 @@ class RubyRacer
 
   # Rolls the die and advances +player+ accordingly
   def advance_player(player)
-    puts "#{player[:name]}, press return to roll the die."
-    wait_for_return = gets.chomp
+    if @auto_mode == false
+      puts "#{player[:name]}, press return to roll the die."
+      wait_for_return = gets.chomp
+    end
     spaces_forward = @die.roll
     if spaces_forward != 0
       player[:fell] = false
-      puts "#{player[:name]} advances #{spaces_forward} space#{unless spaces_forward == 1; "s"; end} forward!"
+      if @auto_mode == false
+        puts "#{player[:name]} advances #{spaces_forward} space#{unless spaces_forward == 1; "s"; end} forward!"
+      end
       if player[:position] + spaces_forward > @length
         player[:position] = @length
       else
@@ -42,11 +47,17 @@ class RubyRacer
       end
     else
       player[:fell] = true
-      puts "Oh no! #{player[:name]} fell off their unicycle!"
-      puts "#{player[:name]} needs to take a break this turn. :("
-      sleep(1)
+      if @auto_mode == false
+        puts "Oh no! #{player[:name]} fell off their unicycle!"
+        puts "#{player[:name]} needs to take a break this turn. :("
+        sleep(1)
+      end
     end
-    sleep(1)
+    if @auto_mode == false
+      sleep(1)
+    else
+      sleep(0.5)
+    end
   end
 
   # Returns the current state of the game as a string
