@@ -1,8 +1,22 @@
 <h1><%= @entry.title %></h1>
 
-<span class="entry-date block font-3-4 c-lt-gray"><%= "Written on #{long_form_date(@entry.created_at)}." %></span>
+<span class="entry-date block font-3-4 c-lt-gray"><%= "written on #{long_form_date(@entry.created_at)}, last updated on #{long_form_date(@entry.updated_at)}." %><br />Tags:
+<% @entry.tags.each do |tag| %>
+<a href="/tags/<%=tag.id%>"><%= tag.name %></a>,
+<% end %></span>
 
 <p><%= @entry.body %></p>
+
+<h4>Comments</h4>
+<% if @entry.comments.any? %>
+<% @entry.comments.each do | comment | %>
+<ul>
+<li><%= "#{comment.body} -#{comment.author.name}, #{long_form_date(comment.updated_at)}" %>
+</li>
+</ul>
+<% end %>
+<% end %>
+
 
 <ul class="no-bullets no-padding mar-t-2">
   <li class="pipe-separate left">

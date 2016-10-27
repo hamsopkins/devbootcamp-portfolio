@@ -15,7 +15,20 @@
       <nav class="clearfix mar-b-1">
         <ul class="no-bullets no-margin no-padding right">
           <li class="pipe-separate t-light-green left"><a href="/">home</a></li>
-        </ul>
+          <% if session[:user_id] %>
+          <li class="pipe-separate t-light-green left">
+          <a href="/logout">sign out</a>
+          </li>
+          <% end %>
+          </ul>
+           <ul class="no-bullets no-margin no-padding left">
+          <% if session[:user_id] %>
+          <li class="pipe-separate t-light-green right">Hello, <%= User.find(session[:user_id]).name %>!</li>
+          <% else %>
+          <li class="pipe-separate t-light-green left"><a href="/users/new">sign up!</a></li>
+          <li class="pipe-separate t-light-green left"><a href="/login">sign in!</a></li>
+          <% end %>
+          </ul>
       </nav>
 
       <div class="logo-container">
