@@ -7,7 +7,7 @@
     <% end %>
   </ul>
 <% end %>
-<span class="entry-date block font-3-4 c-lt-gray"><%= "written by #{@entry.author.name} on #{long_form_date(@entry.created_at)}, last updated on #{long_form_date(@entry.updated_at)}." %><br />Tags:
+<span class="entry-date block font-3-4 c-lt-gray"><%= "written by <a href='/users/#{@entry.author.id}/entries'>#{@entry.author.name}</a> on #{long_form_date(@entry.created_at)}, last updated on #{long_form_date(@entry.updated_at)}." %><br />Tags:
 <% @entry.tags.each do |tag| %>
 <a href="/tags/<%=tag.id%>"><%= tag.name %></a>,
 <% end %></span>
