@@ -1,11 +1,22 @@
+<% if @errors %>
+  <span>Something went wrong:</span>
+  <ul class="error-list pad-b-2">
+    <% @errors.each do |error| %>
+      <li class="error-item"><%= error %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<% if session[:user_id] %>
 <a href="/entries/new" class="block button w-100 mar-t-2 mar-b-3 pad-2 round-1 text-c center">Write about Broccoli</a>
+<% end %>
 
 <main role="main">
   <ul class="entries-list no-bullets no-padding">
     <% @entries.each do |entry| %>
       <li class="entry-item pad-b-4">
         <a href="/entries/<%= entry.id %>" class="entry-title font-2 pad-b-1-4 c-white"><%= entry.title %></a>
-        <span class="entry-date block font-3-4 c-lt-gray"><%= "written on #{long_form_date(entry.created_at)}, last updated on #{long_form_date(entry.updated_at)}." %><br />Tags:
+        <span class="entry-date block font-3-4 c-lt-gray"><%= "written by #{entry.author.name} on #{long_form_date(entry.created_at)}, last updated on #{long_form_date(entry.updated_at)}." %><br />Tags:
         <% entry.tags.each do |tag| %>
 <a href="/tags/<%=tag.id%>"><%= tag.name %></a>,
 <% end %></span>

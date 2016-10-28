@@ -8,12 +8,17 @@
     <% end %>
   </ul>
 <% end %>
+<% text_tags = "" %>
+<% @entry.tags.each { | tag | text_tags << tag.name + " " } %>
 
 <form method="post" action="/entries/<%= @entry.id %>">
   <input type="hidden" name="_method" value="put">
 
   <label for="title-input" class="block mar-b-1">Title:</label>
   <input id="title-input" name="entry[title]" type="text" value="<%= @entry.try(:title) %>" tabindex="1" class="block w-100 no-outline no-border pad-1 mar-b-2">
+
+  <label for="tags" class="block mar-b-1">Tags (separate with spaces):</label>
+  <input id="title-input" name="tags" type="text" value="<%= text_tags %>" tabindex="1" class="block w-100 no-outline no-border pad-1 mar-b-2">
 
   <label for="body-textarea" class="block mar-b-1">Body:</label>
   <textarea id="body-textarea" name="entry[body]" tabindex="2" class="block w-100 h-10 no-resize no-outline no-border no-resize pad-1 mar-b-2"><%= @entry.try(:body) %></textarea>

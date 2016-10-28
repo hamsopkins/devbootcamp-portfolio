@@ -4,21 +4,48 @@ get '/entries' do
   erb :'entries/index'
 end
 
-post '/entries' do
-  @entry = Entry.new(params[:entry])
+post '/entries/:entry_id/comments' do
+  @comment = Comment.new( entry_id: params[:entry_id],
+                          author_id: session[:user_id],
+                          body: params[:body])
+  if @comment.save
+    redirect "/entries/#{params[:entry_id]}"
+  else
+    @errors = @comment.errors.full_messages
+    @entry = Entry.find(params[:entry_id])
+    erb :'entries/show'
+  end
+end
 
-  if @entry.save
-    redirect "/entries/#{@entry.id}"
+post '/entries' do
+  if session[:user_id]
+    @entry = Entry.new
+    tags = params[:tags].split(" ").map { | entry_tag | Tag.find_or_create_by(name: entry_tag.downcase) }
+    @entry.assign_attributes(params[:entry])
+    @entry.author_id = session[:user_id]
+    # @entry.tags = params[:tags].split(" ").map { | entry_tag | Tag.find_or_create_by(name: entry_tag.downcase) }
+    # @entry.author_id = session[:user_id]
+    # @entry.assign_attributes(params[:entry])
+    if @entry.save
+      @entry.update_attributes(tags: tags)
+      redirect "/entries/#{@entry.id}"
+    else
+      @errors = @entry.errors.full_messages
+      erb :'entries/new'
+    end
   else
     @errors = @entry.errors.full_messages
-    erb :'entries/new'
+    erb 'entries/index'
   end
 end
 
 get '/entries/new' do
-  erb :'entries/new'
+  if session[:user_id]
+    erb :'entries/new'
+  else
+    erb :'entries/index'
+  end
 end
-
 
 # route handlers dealing with a specific entry
 before '/entries/:id' do
@@ -31,22 +58,49 @@ get '/entries/:id' do
 end
 
 put '/entries/:id' do
-  @entry.assign_attributes(params[:entry])
-
-  if @entry.save
-    redirect "entries/#{@entry.id}"
+  if @entry.author_id == session[:user_id]
+    params[:entry][:tags] = params[:tags].split(" ").map { | entry_tag | Tag.find_or_create_by(name: entry_tag.downcase) }
+    @entry.assign_attributes(params[:entry])
+    if @entry.save
+      redirect "entries/#{@entry.id}"
+    else
+      @errors = @entry.errors.full_messages
+      erb :'entries/edit'
+    end
   else
     @errors = @entry.errors.full_messages
-    erb :'entries/edit'
+    erb :'entries/show'
   end
 end
 
 delete '/entries/:id' do
-  @entry.destroy
-  redirect '/entries'
+  if @entry.author_id == session[:user_id]
+    @entry.destroy
+    redirect '/entries'
+  else
+    @errors = @entry.errors.full_messages
+    erb :'entries/show'
+  end
 end
 
 get '/entries/:id/edit' do
   @entry = find_and_ensure_entry(params[:id])
-  erb :'entries/edit'
+  if @entry.author.id == session[:user_id]
+    erb :'entries/edit'
+  else
+    @errors = @entry.errors.full_messages
+    erb :'entries/show'
+  end
+end
+
+delete '/comments/:id' do
+  @comment = Comment.find(params[:id])
+  @entry = @comment.entry
+  if @comment.author_id == session[:user_id]
+    @comment.destroy
+    redirect "/entries/#{@entry.id}"
+  else
+    @errors = @comment.errors.full_messages
+    erb :'entries/show'
+  end
 end

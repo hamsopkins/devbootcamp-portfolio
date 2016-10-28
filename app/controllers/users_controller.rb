@@ -21,7 +21,7 @@ end
 
 get '/login' do
 	if session[:user_id]
-		redirect "/restricted"
+		redirect "/"
 	else
 		erb :login
 	end
