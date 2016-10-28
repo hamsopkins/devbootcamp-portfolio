@@ -14,6 +14,11 @@ post '/users' do
 	end
 end
 
+get '/users/:id/entries' do
+	@entries = Entry.where(author_id: params[:id])
+  erb :'entries/index'
+end
+
 get '/logout' do
 	session[:user_id] = nil
 	redirect "/"

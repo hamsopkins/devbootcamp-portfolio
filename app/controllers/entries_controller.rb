@@ -5,15 +5,21 @@ get '/entries' do
 end
 
 post '/entries/:entry_id/comments' do
-  @comment = Comment.new( entry_id: params[:entry_id],
-                          author_id: session[:user_id],
-                          body: params[:body])
-  if @comment.save
-    redirect "/entries/#{params[:entry_id]}"
+  if session[:user_id]
+    @comment = Comment.new( entry_id: params[:entry_id],
+                            author_id: session[:user_id],
+                            body: params[:body])
+    if @comment.save
+      redirect "/entries/#{params[:entry_id]}"
+    else
+      @errors = @comment.errors.full_messages
+      @entry = Entry.find(params[:entry_id])
+      erb :'entries/show'
+    end
   else
-    @errors = @comment.errors.full_messages
-    @entry = Entry.find(params[:entry_id])
-    erb :'entries/show'
+    @entries = Entry.most_recent
+    @errors = ["You must be logged in to post."]
+    erb :'entries/index'
   end
 end
 
@@ -34,8 +40,9 @@ post '/entries' do
       erb :'entries/new'
     end
   else
-    @errors = @entry.errors.full_messages
-    erb 'entries/index'
+    @entries = Entry.most_recent
+    @errors = ["You must be logged in to post."]
+    erb :'entries/index'
   end
 end
 
@@ -43,6 +50,8 @@ get '/entries/new' do
   if session[:user_id]
     erb :'entries/new'
   else
+    @entries = Entry.most_recent
+    @errors = ["You must be logged in to post."]
     erb :'entries/index'
   end
 end
@@ -68,7 +77,7 @@ put '/entries/:id' do
       erb :'entries/edit'
     end
   else
-    @errors = @entry.errors.full_messages
+    @errors = ["You are not logged in as the correct user."]
     erb :'entries/show'
   end
 end
@@ -78,7 +87,7 @@ delete '/entries/:id' do
     @entry.destroy
     redirect '/entries'
   else
-    @errors = @entry.errors.full_messages
+    @errors = ["You are not logged in as the correct user."]
     erb :'entries/show'
   end
 end
@@ -88,7 +97,7 @@ get '/entries/:id/edit' do
   if @entry.author.id == session[:user_id]
     erb :'entries/edit'
   else
-    @errors = @entry.errors.full_messages
+    @errors = ["You are not logged in as the correct user."]
     erb :'entries/show'
   end
 end
@@ -100,7 +109,7 @@ delete '/comments/:id' do
     @comment.destroy
     redirect "/entries/#{@entry.id}"
   else
-    @errors = @comment.errors.full_messages
+    @errors = ["You are not logged in as the correct user."]
     erb :'entries/show'
   end
 end

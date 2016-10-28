@@ -3,5 +3,6 @@ get "/tags" do
 end
 
 get "/tags/:id" do
-
+	@entries = Tagging.where(tag_id: params[:id]).map {|tagging| tagging.entry }
+  erb :'entries/index'
 end
