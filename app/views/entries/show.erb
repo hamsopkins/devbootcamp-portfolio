@@ -29,11 +29,12 @@
 </ul>
 <% end %>
 <% end %>
+<% if session[:user_id] %>
 <form method="post" action="/entries/<%= @entry.id %>/comments">
 	<input type="text" name="body" placeholder="comment on this">
 	<input type ="submit" value="comment!" style="color: green">
 </form>
-
+<% end %>
 <% if session[:user_id] == @entry.author_id %>
 <ul class="no-bullets no-padding mar-t-2">
   <li class="pipe-separate left">
