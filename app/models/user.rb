@@ -18,11 +18,12 @@ class User < ActiveRecord::Base
   end
 
   def self.authenticate(email, password)
-    users = User.where(email: email)
-    if users.any?
-  		users.first.authenticate(password)
+  	user = User.find_or_initialize_by(email: email)
+  	if user.valid?
+  		user.authenticate(password)
   	else
   		false
   	end
   end
+  
 end
