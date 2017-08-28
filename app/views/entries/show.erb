@@ -1,0 +1,51 @@
+<% if @errors %>
+  <span>Something went wrong:</span>
+  <ul class="error-list pad-b-2">
+    <% @errors.each do |error| %>
+      <li class="error-item"><%= error %></li>
+    <% end %>
+  </ul>
+<% end %>
+<h1><%= @entry.title %></h1>
+<p><%= @entry.body %></p>
+<span class="entry-date block font-3-4 c-lt-gray"><%= "by <a href='/users/#{@entry.author.id}/entries'>#{@entry.author.name}</a> on #{long_form_date(@entry.created_at)}, last updated on #{long_form_date(@entry.updated_at)}." %><br />Tags:
+<% @entry.tags.each do |tag| %>
+<a href="/tags/<%=tag.id%>"><%= tag.name %></a>,
+<% end %></span>
+
+
+<h4>Comments</h4>
+<% if @entry.comments.any? %>
+<% @entry.comments.each do | comment | %>
+<ul>
+<li><%= "#{comment.body} -#{comment.author.name}, #{long_form_date(comment.updated_at)}" %>
+<% if session[:user_id] == comment.author_id %>
+<form method="post" action="/comments/<%= comment.id %>">
+<input type="hidden" name="_method" value="delete">
+<input type="submit" value="delete" style="color: green">
+</form>
+<% end %>
+</li>
+</ul>
+<% end %>
+<% end %>
+<% if session[:user_id] %>
+<form method="post" action="/entries/<%= @entry.id %>/comments">
+	<input type="text" name="body" placeholder="comment on this">
+	<input type ="submit" value="comment!" style="color: green">
+</form>
+<% end %>
+<% if session[:user_id] == @entry.author_id %>
+<ul class="no-bullets no-padding mar-t-2">
+  <li class="pipe-separate left">
+    <a href="/entries/<%= @entry.id %>/edit" class="c-white">edit</a>
+  </li>
+
+  <li class="pipe-separate left">
+    <form method="post" action="/entries/<%= @entry.id %>" class="inline">
+      <input type="hidden" name="_method" value="delete">
+      <input type="submit" value="delete" class="no-border no-outline no-bg c-white hover-underline">
+    </form>
+  </li>
+</ul>
+<% end %>
