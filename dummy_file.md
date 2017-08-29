@@ -6,3 +6,7 @@ The challenges contained in the subdirectories of this repository were merged fr
 
 ## Code Challenges
 
+* [Binary Search](binary-search) - a simple binary search algorithm. Completed as a pair programming challenge during week 1 in approximately one hour.
+* [Word Search](word-search) - a word search algorithm. Completed as a solo challenge during week 1.
+* [Ruby Racer](ruby-racer) - a simple console game completed as a solo challenge during week 1.
+* [Multi-author Blog](blog) - a multi-author blog web app powered by Sinatra and PostgreSQL. Includes a script to seed the database for easy testing.
