@@ -10,9 +10,6 @@ def straight_line_include?(word, puzzle)
 	search_string.include?(word)
 end
 
-def snaking_include?(word, puzzle)
-end
- 
 def all_rows_of(puzzle)
 	result_string = ""
 	puzzle.each { |row| result_string << row.join + " " }
