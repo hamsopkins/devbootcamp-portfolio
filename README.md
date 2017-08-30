@@ -10,3 +10,12 @@ The challenges contained in the subdirectories of this repository were merged fr
 * [Word Search](word-search) - a word search algorithm. Completed as a solo challenge during week 1.
 * [Ruby Racer](ruby-racer) - a simple console game completed as a solo challenge during week 1.
 * [Multi-author Blog](blog) - a multi-author blog web app powered by Sinatra and PostgreSQL. Includes a script to seed the database for easy testing.
+
+## Group Projects
+
+* [Babelflow](/hamsopkins/babelflow) - A Stack Overflow clone powered by Sinatra created with three other junior devs over the course of a long weekend after the fifth week on campus at Dev Bootcamp.
+* [Remindr](/chi-coyotes-2016/remindr) - A text message reminder scheduling web app powered by Rails and Twilio. See the readme for a link to a deployed version. Created in a team with two other junior devs
+* Totem - Final group project for Dev Bootcamp created in a team with three other junior devs. Native Android app to locate other users in augmented reality.
+  * [Totem Front End](/ajvera/totem-front-end) - Native Android app
+  * [Totem Back End](/hamsopkins/totem-ws-server) - Node.js websocket server
+  * [Video Demonstration](https://www.youtube.com/watch?v=OWmUOp-2MvE)
