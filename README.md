@@ -13,8 +13,8 @@ The challenges contained in the subdirectories of this repository were merged fr
 
 ## Group Projects
 
-* [Babelflow](//hamsopkins/babelflow) - A Stack Overflow clone powered by Sinatra created with three other junior devs over the course of a long weekend after the fifth week on campus at Dev Bootcamp.
-* [Remindr](/chi-coyotes-2016/remindr) - A text message reminder scheduling web app powered by Rails and Twilio. See the readme for a link to a deployed version. Created in a team with two other junior devs
+* [Babelflow](https://github.com/hamsopkins/babelflow) - A Stack Overflow clone powered by Sinatra created with three other junior devs over the course of a long weekend after the fifth week on campus at Dev Bootcamp.
+* [Remindr](https://github.com/chi-coyotes-2016/remindr) - A text message reminder scheduling web app powered by Rails and Twilio. See the readme for a link to a deployed version. Created in a team with two other junior devs
 * Totem - Final group project for Dev Bootcamp created in a team with three other junior devs. Native Android app to locate other users in augmented reality.
   * [Totem Front End](https://github.com/ajvera/totem-front-end) - Native Android app
   * [Totem Back End](https://github.com/hamsopkins/totem-ws-server) - Node.js websocket server
